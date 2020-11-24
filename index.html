@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>testing search</title>
+</head>
+<body>
+  <div class="">
+    <div class="input-group--search">
+      <div class="helper">
+        <input class="cool-search" type="text" name="search" id="search" placeholder="Название программы обучения">
+        <ul class="cool-search-items" id="showed-items"></ul>
+      </div>
+      <input class="cool-search--submit" type="submit" name="submit-search" value="Найти">
+    </div>
+    
+    
+  </div>
+
+  <script>
+
+    function createCoolSearch(){
+
+      const search = document.getElementById('search');
+      const showedItems = document.getElementById('showed-items');
+      let i;
+      search.addEventListener('keyup', (e) => {
+        showedItems.innerHTML = '';
+        i = 0;
+        programs.forEach(item => {
+          if(item.title.toLowerCase().includes(search.value.toLowerCase())  && search.value !== '' && i < 10){
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-item');
+            listItem.innerHTML = item.title;
+            showedItems.appendChild(listItem);
+            i++;
+          }
+          // todo: else ingage with user to try to get them to leave an order like "No program found? Talk to a human" 
+        })
+
+        const listItems = Array.from(document.querySelectorAll('#showed-items li'))
+      
+        listItems.forEach(item => {
+
+          const regex =  new RegExp(search.value,'i');
+          item.innerHTML = item.innerHTML.replace(regex, `<span class="highlight">${search.value}</span>`)
+
+          item.innerHTML = item.innerHTML.toLowerCase();
+
+          item.addEventListener('click', () => {
+                console.log('test');
+                search.value = item.innerText;
+                showedItems.innerHTML = ''
+              })
+        })
+      })
+
+      insertStyle(`
+            body{
+                  font-family: sans-serif;
+                }
+                .highlight {
+                  font-weight: 700;
+                }
+                .list-item{
+                  margin-bottom: 0.5rem;
+                  padding: 1rem;
+                  cursor: pointer;
+                }
+                .list-item:hover{
+                  background-color: #f2f7ff;
+                }
+                .list-item::first-letter{
+                  text-transform: capitalize;
+                }
+                .cool-search{
+                  padding: 10px 15px;
+                  border: 1px solid #00528C;
+                  outline: none;
+                  font-size: 16px;
+                }
+                .cool-search-items{
+                  margin: 0;
+                  padding: 0;
+                  background-color: #fff;
+                  border: 1px solid #000;
+                  border-top: none;
+                }
+                .input-group--search{
+                  display: flex;
+                  max-width: 50rem;
+                }
+                .cool-search--submit{
+                  background: #284773;
+                  border: none;
+                  outline: none;
+                  color: white;
+                  text-transform: uppercase;
+                  font-size: 14px;
+                  width: 200px;
+                  padding: 11px 0;
+                  cursor: pointer;
+                  max-height: 40px;
+                }
+                .cool-search--submit:hover{
+                  background: #FFA200;
+                }
+                .helper{
+                  width: 100%;
+                  margin-right: 1rem;
+                  display: flex;
+                  flex-direction: column;
+                }
+        `)
+
+    }
+
+    createCoolSearch();
+
+    function insertStyle(css){
+      const head = document.head || document.getElementsByTagName('head')[0];
+      const style = document.createElement('style');
+  
+      head.appendChild(style);
+      
+      style.type = 'text/css';
+      if (style.styleSheet){
+        // This is required for IE8 and below.
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+    }
+
+    const programs = [
+      {
+        title: 'Менеджмент',
+        url: 'professionalnaja-perepodgotovka/menedzhment/'
+      },
+      {
+        title: 'Антикризисное управление',
+        url: 'professionalnaja-perepodgotovka/menedzhment/antikrizisnoe-upravlenie-pp/'
+      },
+      {
+        title: 'Администрирование в сфере гостиничного сервиса',
+        url: 'professionalnaja-perepodgotovka/menedzhment/administrirovaniye-v-sfere-gostinichnogo-servisa/'
+      },
+      {
+        title: 'Администрирование в спортивных клубах и фитнес-центрах',
+        url: 'professionalnaja-perepodgotovka/menedzhment/administrirovaniye-v-sportivnykh-klubakh-i-fitnes-tsentrakh/'
+      },
+      {
+        title: 'Администрирование в развлекательно-досуговой организации',
+        url: 'professionalnaja-perepodgotovka/menedzhment/administrirovaniye-v-razvlekatelno-dosugovoy-organizatsii/'
+      },
+      {
+        title: 'Руководитель кадровой службы',
+        url: 'professionalnaja-perepodgotovka/menedzhment/rukovoditel-kadrovoy-sluzhby/'
+      },
+      {
+        title: 'Руководитель театрального коллектива',
+        url: 'professionalnaja-perepodgotovka/menedzhment/rukovoditel-teatralnogo-kollektiva/'
+      },
+      {
+        title: 'Руководитель хореографического коллектива',
+        url: 'professionalnaja-perepodgotovka/menedzhment/rukovoditel-teatralnogo-kollektiva/'
+      },
+      {
+        title: 'Менеджер по развитию персонала',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzher-po-razvitiju-personala-pp/'
+      },
+      {
+        title: 'Управление персоналом',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzher-po-upravleniju-personalom-pp/'
+      },
+      {
+        title: 'Менеджер по подбору и адаптации персонала',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzher-po-podboru-i-adaptacii-personala-pp/'
+      },
+      {
+        title: 'Специалист по подбору и адаптации персонала',
+        url: 'professionalnaja-perepodgotovka/menedzhment/spetsialist-po-podboru-i-adaptatsii-personal/'
+      },
+      {
+        title: 'Менеджер по оценке персонала',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzher-po-ocenke-personala-pp/'
+      },
+      {
+        title: 'Директор по персоналу',
+        url: 'professionalnaja-perepodgotovka/menedzhment/direktor-po-personalu/'
+      },
+      {
+        title: 'Специалист по кадровому делопроизводству',
+        url: 'professionalnaja-perepodgotovka/menedzhment/specialist-po-kadrovomu-deloproizvodstvu/'
+      },
+      {
+        title: 'Специалист по кадровому аудиту',
+        url: 'professionalnaja-perepodgotovka/menedzhment/spetsialist-po-kadrovomu-auditu/'
+      },
+      {
+        title: 'Менеджер по оплате и нормированию труда',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzher-po-oplate-i-normirovaniju-truda-pp/'
+      },
+      {
+        title: 'Управление проектами',
+        url: 'professionalnaja-perepodgotovka/menedzhment/upravlenie-proektami-pp/'
+      },
+      {
+        title: 'Управление инновационными проектами',
+        url: 'professionalnaja-perepodgotovka/menedzhment/upravlenie-innovacionnymi-proektami-pp/'
+      },
+      {
+        title: 'Управление качеством',
+        url: 'professionalnaja-perepodgotovka/menedzhment/upravlenie-kachestvom-pp/'
+      },
+      {
+        title: 'Стратегический менеджмент',
+        url: 'professionalnaja-perepodgotovka/menedzhment/strategicheskij-menedzhment-pp/'
+      },
+      {
+        title: 'Менеджмент в образовании в условиях реализации ФГОС',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-obrazovanii-v-usloviyakh-realizatsii-fgos/'
+      },
+      {
+        title: 'Менеджмент в сфере гостиничного сервиса',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-sfere-gostinichnogo-servisa/'
+      },
+      {
+        title: 'Менеджмент в сфере общественного питания',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-sfere-obshchestvennogo-pitaniya/'
+      },
+      {
+        title: 'Менеджмент в сфере развлекательно-досуговых услуг',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-sfere-razvlekatelno-dosugovykh-uslug/'
+      },
+      {
+        title: 'Менеджмент в сфере туризма и сервиса',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-sfere-turizma-i-servisa/'
+      },
+      {
+        title: 'Менеджмент в сфере физической культуры и спорта',
+        url: 'professionalnaja-perepodgotovka/menedzhment/menedzhment-v-sfere-fizicheskoy-kultury-i-sporta/'
+      },
+      {
+        title: 'Документоведение и архивоведение',
+        url: 'professionalnaja-perepodgotovka/menedzhment/dokumentovedenie-i-arhivovedenie-pp/'
+      },
+      {
+        title: 'Финансовый менеджмент',
+        url: 'professionalnaja-perepodgotovka/menedzhment/finansovyj-menedzhment-pp/'
+      },
+      {
+        title: 'Менеджмент в различных сферах',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/'
+      },
+      {
+        title: 'Делопроизводство в государственных и муниципальных учреждениях',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/deloproizvodstvo-v-gosudarstvennykh-i-munitsipalnykh-uchrezhdeniyakh/'
+      },
+      {
+        title: 'Менеджмент в спортивных учреждениях',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/menedzhment-v-sportivnyh-uchrezhdenijah-pp/'
+      },
+      {
+        title: 'Менеджмент в учреждениях культуры',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/menedzhment-v-uchrezhdenijah-kultury-pp/'
+      },
+      {
+        title: 'Менеджер здравоохранения',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/menedzher-zdravoohranenija-pp/'
+      },
+      {
+        title: 'Менеджер образования',
+        url: 'professionalnaja-perepodgotovka/menedzhment-v-razlichnyh-sferah/menedzher-obrazovanija-pp/'
+      },
+      {
+        title: 'Логистика',
+        url: 'professionalnaja-perepodgotovka/logistika/'
+      },
+      {
+        title: 'Логистика общая',
+        url: 'professionalnaja-perepodgotovka/logistika/logistika-obshhaja-pp/'
+      },
+      {
+        title: 'Складская логистика',
+        url: 'professionalnaja-perepodgotovka/logistika/skladskaja-logistika-pp/'
+      },
+      {
+        title: 'Транспортная логистика',
+        url: 'professionalnaja-perepodgotovka/logistika/transportnaja-logistika-pp/'
+      },
+      {
+        title: 'Закупочная логистика',
+        url: 'professionalnaja-perepodgotovka/logistika/zakupochnaja-logistika-pp/'
+      },
+      {
+        title: 'Государственное и муниципальное управление',
+        url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/'
+      },
+      {
+        title: 'Государственное и муниципальное управление',
+        url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/gosudarstvennoe-i-municipalnoe-upravlenie-pp/'
+      },
+      {
+        title: 'Управление развитием региона',
+        url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/upravlenie-razvitiem-regiona-pp/'
+      },
+      {
+        title: 'Управление развитием региона',
+        url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/upravlenie-razvitiem-regiona-pp/'
+      },
+      {
+        title: 'Экономика',
+        url: 'professionalnaja-perepodgotovka/jekonomika/'
+      },
+      {
+        title: 'Бухгалтерский учет, анализ и аудит',
+        url: 'professionalnaja-perepodgotovka/jekonomika/buhgalterskij-uchet-analiz-i-audit-pp/'
+      },
+      {
+        title: 'Бухгалтерский и налоговый учет в организациях малого бизнеса и ИП',
+        url: 'professionalnaja-perepodgotovka/jekonomika/bukhgalterskiy-i-nalogovyy-uchet-v-organizatsii-malogo-biznesa-i-ip/'
+      },
+      {
+        title: 'Бухгалтерский учет в некоммерческих организациях',
+        url: 'professionalnaja-perepodgotovka/jekonomika/bukhgalterskiy-uchet-v-nekommercheskikh-organizatsiyakh/'
+      },
+      {
+        title: 'Бухгалтерский учёт и налогообложение',
+        url: 'professionalnaja-perepodgotovka/jekonomika/bukhgalterskiy-uchot-i-nalogooblozheniye/'
+      },
+      {
+        title: 'Международные отношения',
+        url: 'professionalnaja-perepodgotovka/jekonomika/mezhdunarodnye-otnoshenija-pp/'
+      },
+      {
+        title: 'Ведение бухгалтерского учета в бюджетных организациях',
+        url: 'professionalnaja-perepodgotovka/jekonomika/vedeniye-bukhgalterskogo-ucheta-v-byudzhetnykh-organizatsiyakh/'
+      },
+      {
+        title: 'Бухгалтерский учёт и калькуляция на предприятиях общественного питания',
+        url: 'professionalnaja-perepodgotovka/jekonomika/bukhgalterskiy-uchot-i-kalkulyatsiya-na-predpriyatiyakh-obshchestvennogo-pitaniya/'
+      },
+      {
+        title: 'Налоги и налогообложение',
+        url: 'professionalnaja-perepodgotovka/jekonomika/nalogi-i-nalogooblozhenie-pp/'
+      },
+      {
+        title: 'Экономика и управление на предприятии',
+        url: 'professionalnaja-perepodgotovka/jekonomika/jekonomika-i-upravlenie-na-predprijatii-pp/'
+      },
+      {
+        title: 'Организация внутреннего контроля на предприятии',
+        url: 'professionalnaja-perepodgotovka/jekonomika/organizatsiya-vnutrennego-kontrolya-na-predpriyatii/'
+      },
+      {
+        title: 'Управленческий учет и анализ организации',
+        url: 'professionalnaja-perepodgotovka/jekonomika/upravlencheskiy-uchet-i-analiz-organizatsii/'
+      },
+      {
+        title: 'Управленческий учет и финансовое планирование в организации',
+        url: 'professionalnaja-perepodgotovka/jekonomika/upravlencheskiy-uchet-i-finansovoye-planirovaniye-v-organizatsii/'
+      },
+      {
+        title: 'Анализ и диагностика финансово-хозяйственной деятельности организации',
+        url: 'professionalnaja-perepodgotovka/jekonomika/analiz-i-diagnostika-finansovo-khozyaystvennoy-deyatelnosti-organizatsii/'
+      },
+      {
+        title: 'Финансы и кредит',
+        url: 'professionalnaja-perepodgotovka/jekonomika/finansy-i-kredit-pp/'
+      },
+      {
+        title: 'Финансовый анализ',
+        url: 'professionalnaja-perepodgotovka/jekonomika/finansovyj-analiz-pp/'
+      },
+      {
+        title: 'Внутренний аудит',
+        url: 'professionalnaja-perepodgotovka/jekonomika/vnutrenniy-audit/'
+      },
+      {
+        title: 'Страхование',
+        url: 'professionalnaja-perepodgotovka/jekonomika/strahovanie-pp/'
+      },
+      {
+        title: 'Экономическая безопасность',
+        url: 'professionalnaja-perepodgotovka/jekonomika/jekonomicheskaja-bezopasnost-pp/'
+      },
+      {
+        title: 'Внешнеэкономическая деятельность',
+        url: 'professionalnaja-perepodgotovka/jekonomika/vneshnejekonomicheskaja-dejatelnost-pp/'
+      },
+      {
+        title: 'Рынок ценных бумаг',
+        url: 'professionalnaja-perepodgotovka/jekonomika/rynok-cennyh-bumag-pp/'
+      },
+      {
+        title: 'Региональная экономика',
+        url: 'professionalnaja-perepodgotovka/jekonomika/regionalnaja-jekonomika-pp/'
+      },
+      {
+        title: 'Экономист по оплате и нормированию труда',
+        url: 'professionalnaja-perepodgotovka/jekonomika/jekonomist-po-oplate-i-normirovaniju-truda-pp/'
+      },
+      {
+        title: 'Маркетинг',
+        url: 'professionalnaja-perepodgotovka/marketing/'
+      },
+      {
+        title: 'Менеджер по маркетингу',
+        url: 'professionalnaja-perepodgotovka/marketing/menedzher-po-marketingu-pp/'
+      },
+      {
+        title: 'Интернет-маркетинг',
+        url: 'professionalnaja-perepodgotovka/marketing/internet-marketing-pp/'
+      },
+      {
+        title: 'Директор по маркетингу',
+        url: 'professionalnaja-perepodgotovka/marketing/direktor-po-marketingu-pp/'
+      },
+      {
+        title: 'Журналистика (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/zhurnalistika/'
+      },
+      {
+        title: 'Журналистика',
+        url: 'professionalnaja-perepodgotovka/zhurnalistika/zhurnalistika-pp/'
+      },
+      {
+        title: 'Реклама и PR',
+        url: 'professionalnaja-perepodgotovka/reklama-i-pr/'
+      },
+      {
+        title: 'Реклама и PR (Рссо)',
+        url: 'professionalnaja-perepodgotovka/reklama-i-pr/reklama-i-pr-rsso-pp/'
+      },
+      {
+        title: 'PR менеджер',
+        url: 'professionalnaja-perepodgotovka/reklama-i-pr/pr-menedzher-pp/'
+      },
+      {
+        title: 'Основы брендинга и рекламы',
+        url: 'professionalnaja-perepodgotovka/reklama-i-pr/osnovy-brendinga-i-reklamy-pp/'
+      },
+      {
+        title: 'Охрана труда (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/ohrana-truda/'
+      },
+      {
+        title: 'Охрана труда',
+        url: 'professionalnaja-perepodgotovka/ohrana-truda/ohrana-truda-pp/'
+      },
+      {
+        title: 'Организация системы управления охраной труда',
+        url: 'professionalnaja-perepodgotovka/ohrana-truda/organizatsiya-sistemy-upravleniya-okhranoy-truda/'
+      },
+      {
+        title: 'Охрана труда и техносферная безопасность',
+        url: 'professionalnaja-perepodgotovka/ohrana-truda/ohrana-truda-i-tehnosfernaja-bezopasnost-pp/'
+      },
+      {
+        title: 'Управление охраной труда и обеспечение безопасности на рабочих местах',
+        url: 'professionalnaja-perepodgotovka/ohrana-truda/upravleniye-okhranoy-truda-i-obespecheniye-bezopasnosti-na-rabochikh-mestakh/'
+      },
+      {
+        title: 'Техносферная безопасность',
+        url: 'professionalnaja-perepodgotovka/menedzhment/tekhnosfernaya-bezopasnost/'
+      },
+      {
+        title: 'Продукты питания - технология производства',
+        url: 'professionalnaja-perepodgotovka/produkty-pitanija-tehnologija-proizvodstva/'
+      },
+      {
+        title: 'Продукты питания: виноделие и технология бродильных производств',
+        url: 'professionalnaja-perepodgotovka/produkty-pitanija-tehnologija-proizvodstva/produkty-pitanija-vinodelie-i-tehnologija-brodilnyh-proizvodstv-pp/'
+      },
+      {
+        title: 'Продукты питания: технология производства хлеба, кондитерских и макаронных изделий',
+        url: 'professionalnaja-perepodgotovka/produkty-pitanija-tehnologija-proizvodstva/produkty-pitanija-tehnologija-proizvodstva-hleba-konditerskih-i-makaronnyh-izdelij-pp/'
+      },
+      {
+        title: 'Теплоэнергетика',
+        url: 'professionalnaja-perepodgotovka/teplojenergetika/'
+      },
+      {
+        title: 'Теплоэнергетика и теплотехника',
+        url: 'professionalnaja-perepodgotovka/teplojenergetika/teplojenergetika-i-teplotehnika-pp/'
+      },
+      {
+        title: 'Промышленная теплоэнергетика',
+        url: 'professionalnaja-perepodgotovka/teplojenergetika/promyshlennaja-teplojenergetika-pp/'
+      },
+      {
+        title: 'Педагогика',
+        url: 'professionalnaja-perepodgotovka/pedagogika/'
+      },
+      {
+        title: 'Педагог высшего образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-vysshego-obrazovanija-pp/'
+      },
+      {
+        title: 'Педагог обществознания',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-obshhestvoznanija-pp/'
+      },
+      {
+        title: 'Педагог истории',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-istorii-pp/'
+      },
+      {
+        title: 'Логопедия',
+        url: 'professionalnaja-perepodgotovka/pedagogika/logopediya/'
+      },
+      {
+        title: 'Специальное (дефектологическое) образование',
+        url: 'professionalnaja-perepodgotovka/pedagogika/spetsialnoye-%28defektologicheskoye%29-obrazovaniye/'
+      },
+      {
+        title: 'Педагог основ безопасности жизнедеятельности',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-osnov-bezopasnosti-zhiznedejatelnosti-pp/'
+      },
+      {
+        title: 'Педагог среднего профессионального образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-srednego-professionalnogo-obrazovaniya/'
+      },
+      {
+        title: 'Педагог экологии',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-jekologii-pp/'
+      },
+      {
+        title: 'Педагог-психолог',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-psiholog-pp/'
+      },
+      {
+        title: 'Педагогика и психология образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-i-psikhologiya-obrazovaniya/'
+      },
+      {
+        title: 'Психолого-педагогическое сопровождение образовательного процесса',
+        url: 'professionalnaja-perepodgotovka/pedagogika/psikhologo-pedagogicheskoye-soprovozhdeniye-obrazovatelnogo-protsessa/'
+      },
+      {
+        title: 'Педагог высшей школы',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagog-vysshey-shkoly/'
+      },
+      {
+        title: 'Педагогика раннего развития',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-rannego-razvitiya/'
+      },
+      {
+        title: 'Педагогическая деятельность в области воспитания и социализации личности',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogicheskaya-deyatelnost-v-oblasti-vospitaniya-i-sotsializatsii-lichnosti/'
+      },
+      {
+        title: 'Педагогика и методика дошкольного образования с дополнительной подготовкой в области предшкольной подготовки',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-i-metod-doshkol-obr-s-dop-podgotov-v-obl-predshkolnoy-podgotovki/'
+      },
+      {
+        title: 'Дошкольная педагогика и психология в условиях реализации ФГОС ДО',
+        url: 'professionalnaja-perepodgotovka/pedagogika/doshkolnaya-pedagogika-i-psikhologiya-v-usloviyakh-realizatsii-fgos-do/'
+      },
+      {
+        title: 'Общая педагогика: теория и методика обучения в рамках реализации ФГОС',
+        url: 'professionalnaja-perepodgotovka/pedagogika/obshchaya-pedagogika-teoriya-i-metodika-obucheniya-v-ramkakh-realizatsii-fgos/'
+      },
+      {
+        title: 'Теория и методика преподавания английского языка',
+        url: 'professionalnaja-perepodgotovka/pedagogika/teoriya-i-metodika-prepodavaniya-angliyskogo-yazyka/'
+      },
+      {
+        title: 'Педагогика и методика начального образования в рамках реализации ФГОС',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-i-metodika-nachalnogo-obrazovaniya-v-ramkakh-realizatsii-fgos/'
+      },
+      {
+        title: 'Педагогика и психология дошкольного образования в условиях реализации ФГОС ДО',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-i-psikhologiya-doshkolnogo-obrazovaniya-v-usloviyakh-realizatsii-fgos-do/'
+      },
+      {
+        title: 'Подготовка детей к школьному обучению в дошкольной образовательной организации',
+        url: 'professionalnaja-perepodgotovka/pedagogika/podgotovka-detey-k-shkolnomu-obucheniyu-v-doshkolnoy-obrazovatelnoy-organizatsii/'
+      },
+      {
+        title: 'Физическая культура в дошкольных образовательных организациях в рамках реализации ФГОС (базовая)',
+        url: 'professionalnaja-perepodgotovka/pedagogika/fizicheskaya-kultura-v-doshkolnykh-obrazovatelnykh-organizatsiyakh-v-ramkakh-realizatsii-fgos-mini/'
+      },
+      {
+        title: 'Физическая культура в дошкольных образовательных организациях в рамках реализации ФГОС',
+        url: 'professionalnaja-perepodgotovka/pedagogika/fizicheskaya-kultura-v-doshkolnykh-obrazovatelnykh-organizatsiyakh-v-ramkakh-realizatsii-fgos/'
+      },
+      {
+        title: 'Физическая культура в образовательных организациях в рамках реализации ФГОС (базовая)',
+        url: 'professionalnaja-perepodgotovka/pedagogika/fizicheskaya-kultura-v-obrazovatelnykh-organizatsiyakh-v-ramkakh-realizatsii-fgos-mini/'
+      },
+      {
+        title: 'Физическая культура в образовательных организациях в рамках реализации ФГОС',
+        url: 'professionalnaja-perepodgotovka/pedagogika/fizicheskaya-kultura-v-obrazovatelnykh-organizatsiyakh-v-ramkakh-realizatsii-fgos/'
+      },
+      {
+        title: 'Физкультурно-оздоровительная деятельность по плаванию с детьми дошкольного возраста',
+        url: 'professionalnaja-perepodgotovka/pedagogika/fizkulturno-ozdorovitelnaya-deyatelnost-po-plavaniyu-s-detmi-doshkolnogo-vozrasta/'
+      },
+      {
+        title: 'Библиотечно-педагогическая деятельность',
+        url: 'professionalnaja-perepodgotovka/pedagogika/bibliotechno-pedagogicheskaya-deyatelnost/'
+      },
+      {
+        title: 'Инструктор по детскому фитнесу',
+        url: 'professionalnaja-perepodgotovka/pedagogika/instruktor-po-detskomu-fitnesu/'
+      },
+      {
+        title: 'Тренер-преподаватель по адаптивной физической культуре',
+        url: 'professionalnaja-perepodgotovka/pedagogika/trener-prepodavatel-po-adaptivnoy-fizicheskoy-kulture/'
+      },
+      {
+        title: 'Педагогика и методика начального образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/pedagogika-i-metodika-nachalnogo-obrazovanija-pp/'
+      },
+      {
+        title: 'Дошкольная педагогика и психология',
+        url: 'professionalnaja-perepodgotovka/pedagogika/doshkolnaja-pedagogika-i-psihologija-pp/'
+      },
+      {
+        title: 'Дошкольная педагогика, воспитатель ДОО',
+        url: 'professionalnaja-perepodgotovka/pedagogika/doshkolnaja-pedagogika-vospitatel-dou-pp/'
+      },
+      {
+        title: 'Методист дошкольного образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/metodist-doshkolnogo-obrazovaniya/'
+      },
+      {
+        title: 'Методическое обеспечение среднего профессионального образования',
+        url: 'professionalnaja-perepodgotovka/pedagogika/metodicheskoye-obespecheniye-srednego-professionalnogo-obrazovaniya/'
+      },
+      {
+        title: 'Методология и технология педагогической деятельности',
+        url: 'professionalnaja-perepodgotovka/pedagogika/metodologiya-i-tekhnologiya-pedagogicheskoy-deyatelnosti/'
+      },
+      {
+        title: 'Музыкальный руководитель в дошкольной образовательной организации',
+        url: 'professionalnaja-perepodgotovka/pedagogika/muzykalnyy-rukovoditel-v-doshkolnoy-obrazovatelnoy-organizatsii/'
+      },
+      {
+        title: 'Музыкальное воспитание и эстетическое развитие детей в дошкольной образовательной организации',
+        url: 'professionalnaja-perepodgotovka/pedagogika/muzykalnoye-vospitaniye-i-esteticheskoye-razvitiye-detey-v-doshkolnoy-obrazovatelnoy-organizatsii/'
+      },
+      {
+        title: 'Организация и проведение практических занятий по адаптивной физической культуре',
+        url: 'professionalnaja-perepodgotovka/pedagogika/organizatsiya-i-provedeniye-prakticheskikh-zanyatiy-po-adaptivnoy-fizicheskoy-kulture/'
+      },
+      {
+        title: 'Организация и проведение тренировочного процесса',
+        url: 'professionalnaja-perepodgotovka/pedagogika/organizatsiya-i-provedeniye-trenirovochnogo-protsessa/'
+      },
+      {
+        title: 'Организация и содержание логопедической работы',
+        url: 'professionalnaja-perepodgotovka/pedagogika/organizatsiya-i-soderzhaniye-logopedicheskoy-raboty/'
+      },
+      {
+        title: 'Социальная работа (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/sotsialnaya-rabota/'
+      },
+      {
+        title: 'Социальная работа',
+        url: 'https://ipo.msk.ru/professionalnaja-perepodgotovka/pedagogika/socialnaja-rabota-pp/'
+      },
+      {
+        title: 'Социальный педагог',
+        url: 'professionalnaja-perepodgotovka/pedagogika/socialnyj-pedagog-pp/'
+      },
+      {
+        title: 'Руководитель организации социального обслуживания',
+        url: 'professionalnaja-perepodgotovka/pedagogika/rukovoditel-organizatsii-obshchestvennogo-obsluzhivaniya/'
+      },
+      {
+        title: 'Организация социального обслуживания населения',
+        url: 'professionalnaja-perepodgotovka/pedagogika/organizatsiya-obshchestvennogo-obsluzhivaniya-naseleniya/'
+      },
+      {
+        title: 'Деятельность органов опеки и попечительства в отношении несовершеннолетних',
+        url: 'professionalnaja-perepodgotovka/pedagogika/deyatelnost-organov-opeki-i-popechitelstva-v-otnoshenii-nesovershennoletnikh/'
+      },
+      {
+        title: 'Психология (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/psihologija/'
+      },
+      {
+        title: 'Психология',
+        url: 'professionalnaja-perepodgotovka/psihologija/psihologija-pp/'
+      },
+      {
+        title: 'Психология: Очно-заочная (вечерняя) форма обучения',
+        url: 'professionalnaja-perepodgotovka/psihologija/psikhologiya2/'
+      },
+      {
+        title: 'Клиническая психология',
+        url: 'professionalnaja-perepodgotovka/psihologija/klinicheskaya-psikhologiya/'
+      },
+      {
+        title: 'Психология личности',
+        url: 'professionalnaja-perepodgotovka/psihologija/psikhologiya-lichnosti/'
+      },
+      {
+        title: 'Социальная психология в бизнесе',
+        url: 'professionalnaja-perepodgotovka/psihologija/socialnaja-psihologija-v-biznese-pp/'
+      },
+      {
+        title: 'Социальная психология',
+        url: 'professionalnaja-perepodgotovka/psihologija/sotsialnaya-psikhologiya/'
+      },
+      {
+        title: 'Психология служебной деятельности',
+        url: 'professionalnaja-perepodgotovka/psihologija/psikhologiya-sluzhebnoy-deyatelnosti/'
+      },
+      {
+        title: 'Спортивная психология',
+        url: 'professionalnaja-perepodgotovka/psihologija/sportivnaya-psikhologiya/'
+      },
+      {
+        title: 'Психолог-тренер',
+        url: 'professionalnaja-perepodgotovka/psihologija/psikholog-trener/'
+      },
+      {
+        title: 'Нейропсихология',
+        url: 'professionalnaja-perepodgotovka/psihologija/neyropsikhologiya/'
+      },
+      {
+        title: 'Акмеология и психология развития',
+        url: 'professionalnaja-perepodgotovka/psihologija/akmeologiya-i-psikhologiya-razvitiya/'
+      },
+      {
+        title: 'Школьный психолог',
+        url: 'professionalnaja-perepodgotovka/psihologija/shkolnyy-psikholog/'
+      },
+      {
+        title: 'Детская психология',
+        url: 'professionalnaja-perepodgotovka/psihologija/detskaya-psikhologiya/'
+      },
+      {
+        title: 'Психология семьи с основами психотерапии',
+        url: 'professionalnaja-perepodgotovka/psihologija/psihologija-semi-s-osnovami-psihoterapii-pp/'
+      },
+      {
+        title: 'Психология дошкольного образования в условиях реализации ФГОС ДО',
+        url: 'professionalnaja-perepodgotovka/psihologija/psikhologiya-doshkolnogo-obrazovaniya-v-usloviyakh-realizatsii-fgos-do/'
+      },
+      {
+        title: 'Туризм',
+        url: 'professionalnaja-perepodgotovka/turizm/'
+      },
+      {
+        title: 'Туризм и сервис',
+        url: 'professionalnaja-perepodgotovka/turizm/turizm-i-servis-pp/'
+      },
+      {
+        title: 'Дизайн',
+        url: 'professionalnaja-perepodgotovka/dizajn/'
+      },
+      {
+        title: 'Теория дизайна',
+        url: 'professionalnaja-perepodgotovka/dizajn/teorija-dizajna-pp/'
+      },
+      {
+        title: 'Гуманитарные науки',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/'
+      },
+      {
+        title: 'Политология',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/politologija-pp/'
+      },
+      {
+        title: 'Религиоведение',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/religiovedenie-pp/'
+      },
+      {
+        title: 'Культурология',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/kulturologija-pp/'
+      },
+      {
+        title: 'Социология',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/sociologija-pp/'
+      },
+      {
+        title: 'Философия',
+        url: 'professionalnaja-perepodgotovka/gumanitarnye-nauki/filosofija-pp/'
+      },
+      {
+        title: 'Информатика и вычислительная техника (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/'
+      },
+      {
+        title: 'Информатика и вычислительная техника',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/informatika-i-vychislitelnaja-tehnika-pp/'
+      },
+      {
+        title: 'Вычислительные машины, комплексы, системы и сети',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/vychislitelnye-mashiny-kompleksy-sistemy-i-seti-pp/'
+      },
+      {
+        title: 'Технология разработки программного обеспечения',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/tehnologii-razrabotki-programmnogo-obespechenija-pp/'
+      },
+      {
+        title: 'Технология разработки мобильного приложения',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/tehnologii-razrabotki-mobilnyh-prilozhenij-pp/'
+      },
+      {
+        title: 'Программное обеспечение средств вычислительной техники и автоматизированных систем',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/programmnoe-obespechenie-sredstv-vychislitelnoj-tehniki-i-avtomatizirovannyh-sistem-pp/'
+      },
+      {
+        title: 'Информационные управляющие комплексы систем безопасности объектов',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/informacionnaja-bezopasnost-pp/'
+      },
+      {
+        title: 'Юриспруденция (разводящая страница)',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/'
+      },
+      {
+        title: 'Юриспруденция',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/jurisprudencija-pp/'
+      },
+      {
+        title: 'Сделки с недвижимостью',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/sdelki-s-nedvizhimostju-pp/'
+      },
+      {
+        title: 'Специалист договорного отдела',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/specialist-dogovornogo-otdela-pp/'
+      },
+      {
+        title: 'Юриспруденция: гражданско-правовой профиль',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/yurisprudentsiya-grazhdansko-pravovoy-profil/'
+      },
+      {
+        title: 'Правовое сопровождение социального обеспечения граждан РФ',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/pravovoye-soprovozhdeniye-sotsialnogo-obespecheniya-grazhdan/'
+      },
+      {
+        title: 'Арбитражное антикризисное управление',
+        url: 'professionalnaja-perepodgotovka/jurisprudencija/arbitrazhnoye-antikrizisnoye-upravleniye/'
+      },
+      {
+        title: 'Безопасность дорожного движения',
+        url: 'professionalnaja-perepodgotovka/bezopasnost-dorozhnogo-dvizheniya/'
+      },
+      {
+        title: 'Технология транспортных процессов в области организации и безопасности дорожного движения',
+        url: 'professionalnaja-perepodgotovka/bezopasnost-dorozhnogo-dvizheniya/tekhnologiya-transportnykh-protsessov/'
+      },
+      {
+        title: 'Строительство',
+        url: 'professionalnaja-perepodgotovka/stroitelstvo/'
+      },
+      {
+        title: 'Промышленное и гражданское строительство',
+        url: 'professionalnaja-perepodgotovka/stroitelstvo/promyshlennoe-i-grazhdanskoe-stroitelstvo-pp/'
+      },
+      {
+        title: 'Проектирование зданий и сооружений',
+        url: 'professionalnaja-perepodgotovka/stroitelstvo/proektirovanie-zdanij-i-sooruzhenij-pp/'
+      },
+      {
+        title: 'Эксплуатация зданий и сооружений',
+        url: 'professionalnaja-perepodgotovka/stroitelstvo/ekspluatatsiya-zdaniy-i-sooruzheniy/'
+      },
+      {
+        title: 'Электроэнергетика',
+        url: 'professionalnaja-perepodgotovka/jelektrojenergetika/'
+      },
+      {
+        title: 'Электроэнергетические системы и сети',
+        url: 'professionalnaja-perepodgotovka/jelektrojenergetika/jelektrojenergeticheskie-sistemy-i-seti-pp/'
+      },
+      {
+        title: 'Электрооборудование и электрохозяйство предприятий, организаций и учреждений',
+        url: 'professionalnaja-perepodgotovka/jelektrojenergetika/jelektrooborudovanie-i-jelektrohozjajstvo-predprijatij-organizacij-i-uchrezhdenij-pp/'
+      },
+      {
+        title: 'Медицина',
+        url: 'professionalnaja-perepodgotovka/meditsina/'
+      },
+      {
+        title: 'Высший медперсонал',
+        url: 'professionalnaja-perepodgotovka/meditsina/pp-medicina-vrachi/'
+      },
+      {
+        title: 'Средний медперсонал',
+        url: 'professionalnaja-perepodgotovka/meditsina/pp-medicina-smp/'
+      },
+      {
+        title: 'Клиническая фармакология',
+        url: 'professionalnaja-perepodgotovka/meditsina/klinicheskaya-farmakologiya/'
+      },
+      {
+        title: 'Психиатрия',
+        url: 'professionalnaja-perepodgotovka/meditsina/psikhiatriya/'
+      },
+      {
+        title: 'Психотерапия',
+        url: 'professionalnaja-perepodgotovka/meditsina/psikhoterapiya/'
+      },
+      {
+        title: 'Организация здравоохранения и общественное здоровье',
+        url: 'professionalnaja-perepodgotovka/meditsina/organizatsiya-zdravookhraneniya-i-obshchestvennoye-zdorovye/'
+      },
+      {
+        title: 'Судебно-медицинская экспертиза',
+        url: 'professionalnaja-perepodgotovka/meditsina/sudebno-meditsinskaya-ekspertiza1/'
+      },
+      {
+        title: 'Диетология',
+        url: 'professionalnaja-perepodgotovka/meditsina/diyetologiya1/'
+      },
+      {
+        title: 'Наркология',
+        url: 'professionalnaja-perepodgotovka/meditsina/narkologiya/'
+      },
+      {
+        title: 'Онкология',
+        url: 'professionalnaja-perepodgotovka/meditsina/onkologiya/'
+      },
+      {
+        title: 'Остеопатия',
+        url: 'professionalnaja-perepodgotovka/meditsina/osteopatiya/'
+      },
+      {
+        title: 'Ревматология',
+        url: 'professionalnaja-perepodgotovka/meditsina/revmatologiya/'
+      },
+      {
+        title: 'Рентгенология',
+        url: 'professionalnaja-perepodgotovka/meditsina/rentgenologiya/'
+      },
+      {
+        title: 'Паразитология',
+        url: 'professionalnaja-perepodgotovka/meditsina/parazitologiya/'
+      },
+      {
+        title: 'Стоматология',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya/'
+      },
+      {
+        title: 'Стоматология общей практики',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya-obshchey-praktiki/'
+      },
+      {
+        title: 'Стоматология детская',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya-detskaya/'
+      },
+      {
+        title: 'Стоматология хирургическая',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya-khirurgicheskaya/'
+      },
+      {
+        title: 'Стоматология ортопедическая',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya-ortopedicheskaya/'
+      },
+      {
+        title: 'Стоматология терапевтическая',
+        url: 'professionalnaja-perepodgotovka/meditsina/stomatologiya-terapevticheskaya/'
+      },
+      {
+        title: 'Педиатрия',
+        url: 'professionalnaja-perepodgotovka/meditsina/pediatriya/'
+      },
+      {
+        title: 'Патологическая анатомия',
+        url: 'professionalnaja-perepodgotovka/meditsina/patologicheskaya-anatomiya/'
+      },
+      {
+        title: 'Сексология',
+        url: 'professionalnaja-perepodgotovka/meditsina/seksologiya/'
+      },
+      {
+        title: 'Фтизиатрия',
+        url: 'professionalnaja-perepodgotovka/meditsina/ftiziatriya/'
+      },
+      {
+        title: 'Эпидемиология',
+        url: 'professionalnaja-perepodgotovka/meditsina/epidemiologiya/'
+      },
+      {
+        title: 'Травматология и ортопедия',
+        url: 'professionalnaja-perepodgotovka/meditsina/travmatologiya-i-ortopediya/'
+      },
+      {
+        title: 'Лечебная физкультура и спортивная медицина',
+        url: 'professionalnaja-perepodgotovka/meditsina/lechebnaya-fizkultura-i-sportivnaya-meditsina/'
+      },
+      {
+        title: 'Акушерское дело',
+        url: 'professionalnaja-perepodgotovka/meditsina/akusherskoye-delo/'
+      },
+      {
+        title: 'Сестринский уход в физиотерапевтической практике',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskiy-ukhod-v-fizioterapevticheskoy-praktike/'
+      },
+      {
+        title: 'Сестринское дело',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo/'
+      },
+      {
+        title: 'Организация сестринского дела',
+        url: 'professionalnaja-perepodgotovka/meditsina/organizatsiya-sestrinskogo-dela/'
+      },
+      {
+        title: 'Сестринское дело в косметологии',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo-v-kosmetologii/'
+      },
+      {
+        title: 'Сестринское дело в педиатрии',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo-v-pediatrii/'
+      },
+      {
+        title: 'Сестринское дело в онкологии',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo-v-onkologii/'
+      },
+      {
+        title: 'Сестринское дело в терапии',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo-v-terapii/'
+      },
+      {
+        title: 'Сестринское дело в хирургии',
+        url: 'professionalnaja-perepodgotovka/meditsina/sestrinskoye-delo-v-khirurgii/'
+      },
+      {
+        title: 'Общая практика',
+        url: 'professionalnaja-perepodgotovka/meditsina/obshchaya-praktika2/'
+      },
+      {
+        title: 'Медицинская сестра врача общей практики',
+        url: 'professionalnaja-perepodgotovka/meditsina/obshchaya-praktika/'
+      },
+      {
+        title: 'Медико-социальная помощь',
+        url: 'professionalnaja-perepodgotovka/meditsina/mediko-sotsialnaya-pomoshch/'
+      },
+      {
+        title: 'Медицинская статистика',
+        url: 'professionalnaja-perepodgotovka/meditsina/meditsinskaya-statistika/'
+      },
+      {
+        title: 'Судебно-медицинская экспертиза',
+        url: 'professionalnaja-perepodgotovka/meditsina/sudebno-meditsinskaya-ekspertiza/'
+      },
+      {
+        title: 'Диетология',
+        url: 'professionalnaja-perepodgotovka/meditsina/diyetologiya/'
+      },
+      {
+        title: 'Эндоскопия',
+        url: 'professionalnaja-perepodgotovka/meditsina/endoskopiya/'
+      },
+      {
+        title: 'Гигиеническое воспитание',
+        url: 'professionalnaja-perepodgotovka/meditsina/gigiyenicheskoye-vospitaniye/'
+      },
+      {
+        title: 'Анестезиология и реаниматология',
+        url: 'professionalnaja-perepodgotovka/meditsina/anesteziologiya-i-reanimatologiya/'
+      },
+      {
+        title: 'Дезинфекционное дело',
+        url: 'professionalnaja-perepodgotovka/meditsina/dezinfektsionnoye-delo/'
+      },
+      {
+        title: 'Фельдшер',
+        url: 'professionalnaja-perepodgotovka/meditsina/feldsher/'
+      },
+      {
+        title: 'Бактериология',
+        url: 'professionalnaja-perepodgotovka/meditsina/bakteriologiya/'
+      },
+      {
+        title: 'Гистология',
+        url: 'professionalnaja-perepodgotovka/meditsina/gistologiya/'
+      },
+      {
+        title: 'Операционное дело',
+        url: 'professionalnaja-perepodgotovka/meditsina/operatsionnoye-delo/'
+      },
+      {
+        title: 'Лабораторное дело',
+        url: 'professionalnaja-perepodgotovka/meditsina/laboratornoye-delo/'
+      }
+    ];
+
+  </script>
+</body>
+</html>
+
+
