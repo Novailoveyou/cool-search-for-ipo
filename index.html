@@ -8,12 +8,15 @@
 <body>
   <div class="">
     <div class="input-group--search">
-      <div class="helper">
-        <input class="cool-search" type="text" name="search" id="search" placeholder="Название программы обучения">
-        <ul class="cool-search-items" id="showed-items"></ul>
+      <div class="input-group--search__helper">
+        <!-- <label for="search">Найдите Вашу программу</label> -->
+        <input class="cool-search" type="text" name="cool-search" id="cool-search" placeholder="Название программы обучения">
+        <ul class="cool-search-items" id="cool-showed-items"></ul>
+        <p id="cool-not-found" class="list-item--not-found">Не нашли нужную программу? <br /> <a href='#!'>Оставьте заявку на консультацию</a>, поможем в выборе!</p>
       </div>
-      <input class="cool-search--submit" type="submit" name="submit-search" value="Найти">
+      <input class="cool-search--submit" type="submit" name="cool-submit-search" value="Найти">
     </div>
+    test
     
     
   </div>
@@ -22,118 +25,10 @@
 
     function createCoolSearch(){
 
-      const search = document.getElementById('search');
-      const showedItems = document.getElementById('showed-items');
-      let i;
-      search.addEventListener('keyup', (e) => {
-        showedItems.innerHTML = '';
-        i = 0;
-        programs.forEach(item => {
-          if(item.title.toLowerCase().includes(search.value.toLowerCase())  && search.value !== '' && i < 10){
-            const listItem = document.createElement('li');
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item.title;
-            showedItems.appendChild(listItem);
-            i++;
-          }
-          // todo: else ingage with user to try to get them to leave an order like "No program found? Talk to a human" 
-        })
+      const search = document.getElementById('cool-search');
 
-        const listItems = Array.from(document.querySelectorAll('#showed-items li'))
-      
-        listItems.forEach(item => {
-
-          const regex =  new RegExp(search.value,'i');
-          item.innerHTML = item.innerHTML.replace(regex, `<span class="highlight">${search.value}</span>`)
-
-          item.innerHTML = item.innerHTML.toLowerCase();
-
-          item.addEventListener('click', () => {
-                console.log('test');
-                search.value = item.innerText;
-                showedItems.innerHTML = ''
-              })
-        })
-      })
-
-      insertStyle(`
-            body{
-                  font-family: sans-serif;
-                }
-                .highlight {
-                  font-weight: 700;
-                }
-                .list-item{
-                  margin-bottom: 0.5rem;
-                  padding: 1rem;
-                  cursor: pointer;
-                }
-                .list-item:hover{
-                  background-color: #f2f7ff;
-                }
-                .list-item::first-letter{
-                  text-transform: capitalize;
-                }
-                .cool-search{
-                  padding: 10px 15px;
-                  border: 1px solid #00528C;
-                  outline: none;
-                  font-size: 16px;
-                }
-                .cool-search-items{
-                  margin: 0;
-                  padding: 0;
-                  background-color: #fff;
-                  border: 1px solid #000;
-                  border-top: none;
-                }
-                .input-group--search{
-                  display: flex;
-                  max-width: 50rem;
-                }
-                .cool-search--submit{
-                  background: #284773;
-                  border: none;
-                  outline: none;
-                  color: white;
-                  text-transform: uppercase;
-                  font-size: 14px;
-                  width: 200px;
-                  padding: 11px 0;
-                  cursor: pointer;
-                  max-height: 40px;
-                }
-                .cool-search--submit:hover{
-                  background: #FFA200;
-                }
-                .helper{
-                  width: 100%;
-                  margin-right: 1rem;
-                  display: flex;
-                  flex-direction: column;
-                }
-        `)
-
-    }
-
-    createCoolSearch();
-
-    function insertStyle(css){
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const style = document.createElement('style');
-  
-      head.appendChild(style);
-      
-      style.type = 'text/css';
-      if (style.styleSheet){
-        // This is required for IE8 and below.
-        style.styleSheet.cssText = css;
-      } else {
-        style.appendChild(document.createTextNode(css));
-      }
-    }
-
-    const programs = [
+      if(search !== undefined && search !== null){
+        const programs = [
       {
         title: 'Менеджмент',
         url: 'professionalnaja-perepodgotovka/menedzhment/'
@@ -164,7 +59,7 @@
       },
       {
         title: 'Руководитель хореографического коллектива',
-        url: 'professionalnaja-perepodgotovka/menedzhment/rukovoditel-teatralnogo-kollektiva/'
+        url: 'professionalnaja-perepodgotovka/menedzhment/rukovoditel-khoreograficheskogo-kollektiva/'
       },
       {
         title: 'Менеджер по развитию персонала',
@@ -301,10 +196,6 @@
       {
         title: 'Государственное и муниципальное управление',
         url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/gosudarstvennoe-i-municipalnoe-upravlenie-pp/'
-      },
-      {
-        title: 'Управление развитием региона',
-        url: 'professionalnaja-perepodgotovka/gosudarstvennoe-i-municipalnoe-upravlenie/upravlenie-razvitiem-regiona-pp/'
       },
       {
         title: 'Управление развитием региона',
@@ -1083,6 +974,145 @@
         url: 'professionalnaja-perepodgotovka/meditsina/laboratornoye-delo/'
       }
     ];
+
+        const showedItems = document.getElementById('cool-showed-items');
+        const notFoundEl = document.getElementById('cool-not-found');
+        let i;
+        search.addEventListener('keyup', (e) => {
+          showedItems.innerHTML = '';
+          i = 0;
+        programs.forEach(item => {
+          if(item.title.toLowerCase().includes(search.value.toLowerCase())  && search.value !== '' && i < 10){
+            const listItem = document.createElement('li');
+            listItem.classList.add('cool-list-item');
+            listItem.innerHTML = `<a class="cool-search-links" href="${item.url}">${item.title}</a>`;
+            showedItems.appendChild(listItem);
+            showedItems.classList.add('show-border');
+            notFoundEl.classList.remove('show');
+            i++;
+          }else if(search.value === ''){
+            showedItems.classList.remove('show-border');
+            showedItems.innerHTML = '';
+            notFoundEl.classList.remove('show');
+          }
+        })
+
+        if(showedItems.innerHTML === '' && search.value !== ''){
+          showedItems.classList.remove('show-border');
+          notFoundEl.classList.add('show');
+        }
+
+        const listItems = Array.from(document.querySelectorAll('#cool-showed-items li'));
+      
+        listItems.forEach(item => {
+
+          const regex =  new RegExp(search.value,'i');
+          item.innerHTML = item.innerHTML.replace(regex, `<span class="cool-highlight">${search.value}</span>`);
+
+          item.innerHTML = item.innerHTML.toLowerCase();
+
+          item.addEventListener('click', () => {
+                search.value = item.innerText;
+                showedItems.innerHTML = '';
+                showedItems.classList.remove('show-border');
+              })
+        })
+      })
+
+      insertStyle(`
+            body{
+                  font-family: sans-serif;
+                }
+                .cool-highlight {
+                  font-weight: 700;
+                }
+                .cool-list-item{
+                  margin-bottom: 0.5rem;
+                  cursor: pointer;
+                }
+                .cool-list-item:hover{
+                  background-color: #f2f7ff;
+                }
+                .cool-list-item::first-letter{
+                  text-transform: capitalize;
+                }
+                .cool-search{
+                  padding: 10px 15px;
+                  border: 1px solid #00528C;
+                  outline: none;
+                  font-size: 16px;
+                }
+                .cool-search-items{
+                  margin: 0;
+                  padding: 0;
+                  background-color: #fff;
+                }
+                .cool-search-items.show-border{
+                  border: 1px solid #000;
+                  border-top: none;
+                }
+                .input-group--search{
+                  display: flex;
+                  max-width: 50rem;
+                }
+                .cool-search--submit{
+                  background: #284773;
+                  border: none;
+                  outline: none;
+                  color: white;
+                  text-transform: uppercase;
+                  font-size: 14px;
+                  width: 200px;
+                  padding: 11px 0;
+                  cursor: pointer;
+                  max-height: 40px;
+                }
+                .cool-search--submit:hover{
+                  background: #FFA200;
+                }
+                .input-group--search__helper{
+                  width: 100%;
+                  margin-right: 1rem;
+                  display: flex;
+                  flex-direction: column;
+                }
+                .cool-search-links{
+                  display: block;
+                  color: #000;
+                  text-decoration: none;
+                  height: 100%;
+                  padding: 1rem;
+                }
+                .list-item--not-found{
+                  display: none;
+                }
+                .list-item--not-found.show{
+                  display: block;
+                  padding: 1rem;
+                }
+                .list-item--not-found::first-letter{
+                  text-transform: capitalize;
+                }
+        `)
+      }
+    }
+
+    createCoolSearch();
+
+    function insertStyle(css){
+      const head = document.head || document.getElementsByTagName('head')[0];
+      const style = document.createElement('style');
+  
+      head.appendChild(style);
+      
+      style.type = 'text/css';
+      if (style.styleSheet){
+        // This is required for IE8 and below.
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+    }
 
   </script>
 </body>
