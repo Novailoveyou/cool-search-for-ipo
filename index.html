@@ -6,7 +6,7 @@
   <title>testing search</title>
 </head>
 <body>
-  <div id="cool-search-container" class="">
+  <div id="cool-search-container" class="cool-search-container">
     <div class="input-group--search">
       <div class="input-group--search__helper">
         <!-- <label for="search">Найдите Вашу программу</label> -->
@@ -14,7 +14,7 @@
         <ul class="cool-search-items" id="cool-showed-items"></ul>
         <p id="cool-not-found" class="list-item--not-found">Не нашли нужную программу? <br /> <a href='#!'>Оставьте заявку на консультацию</a>, поможем в выборе!</p>
       </div>
-      <input class="cool-search--submit" type="submit" name="cool-submit-search" value="Найти">
+      <input id="js-cool-search--submit" class="cool-search--submit" type="submit" name="cool-submit-search" value="Найти">
     </div>
     test
     
@@ -694,6 +694,34 @@
         url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/tehnologii-razrabotki-mobilnyh-prilozhenij-pp/'
       },
       {
+        title: 'IT-директор',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/it-direktor/'
+      },
+      {
+        title: 'Вебмастер',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/vebmaster/'
+      },
+      {
+        title: 'Технология блокчейн в цифровой экономике',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/tekhnologiya-blokcheyn-v-tsifrovoy-ekonomike/'
+      },
+      {
+        title: 'Специалист по управлению данными и информационными объектами',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/spetsialist-po-upravleniyu-dannymi-i-informatsionnymi-obyektami/'
+      },
+      {
+        title: 'Автоматизация систем управления',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/avtomatizatsiya-sistem-upravleniya/'
+      },
+      {
+        title: 'Тестирование в области информационных технологий',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/testirovaniye-v-oblasti-informatsionnykh-tekhnologiy/'
+      },
+      {
+        title: 'Менеджер по информационным технологиям (IT-менеджер)',
+        url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/menedzher-po-informatsionnym-tekhnologiyam/'
+      },
+      {
         title: 'Программное обеспечение средств вычислительной техники и автоматизированных систем',
         url: 'professionalnaja-perepodgotovka/informatika-i-vychislitelnaja-tehnika/programmnoe-obespechenie-sredstv-vychislitelnoj-tehniki-i-avtomatizirovannyh-sistem-pp/'
       },
@@ -776,6 +804,10 @@
       {
         title: 'Средний медперсонал',
         url: 'professionalnaja-perepodgotovka/meditsina/pp-medicina-smp/'
+      },
+      {
+        title: 'Авиационная и космическая медицина',
+        url: 'professionalnaja-perepodgotovka/meditsina/aviatsionnaya-i-kosmicheskaya-meditsina/'
       },
       {
         title: 'Клиническая фармакология',
@@ -1007,7 +1039,8 @@
         listItems.forEach(item => {
 
           const regex =  new RegExp(search.value,'i');
-          item.innerHTML = item.innerHTML.replace(regex, `<span class="cool-highlight">${search.value}</span>`);
+          console.log(item.childNodes[0]);
+          item.childNodes[0].innerHTML = item.childNodes[0].innerHTML.replace(regex, `<span class="cool-highlight">${search.value}</span>`);
 
           item.innerHTML = item.innerHTML.toLowerCase();
 
